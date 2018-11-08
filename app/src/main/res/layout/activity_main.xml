@@ -13,7 +13,9 @@
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
-        android:paddingBottom="0dp">
+        android:paddingBottom="0dp"
+        android:background="@color/colorDond">
+
 
     </RelativeLayout>
 

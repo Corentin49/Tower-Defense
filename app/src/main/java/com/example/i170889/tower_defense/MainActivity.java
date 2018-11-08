@@ -1,16 +1,11 @@
 package com.example.i170889.tower_defense;
 
-import android.content.Context;
 import android.graphics.Point;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected List<Mob> listMobs = new ArrayList<>();
     int temps = 0;
     int timeMob;
+    private boolean mapFini = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         display.getSize(size);
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
-        timeMob = 400;
+        timeMob = 600;
+
+
+        initTower();
+        gererMap();
 
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         temps++;
 
-                        if (temps == timeMob) {
-                            gererMob();
-                            temps = 0;
 
-                        }
+
+                            if (temps == timeMob) {
+                                gererMob();
+                                temps = 0;
+
+                            }
                         for (Mob unMob : listMobs) {
                             unMob.move();
                         }
@@ -62,8 +64,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gererMob() {
-        Mob mob = new Mob(this, "Monkey",100.0, size.x / 2, 0.0f);
+        Mob mob = new Mob(this, "Monkey", 100.0, size.x / 2, 0.0f);
         listMobs.add(mob);
     }
+
+    public void initTower() {
+        Tower topMiddleTower = new Tower(this, size.x / 2 - 50, 500.0f);
+        Tower bottomMiddleTower = new Tower(this, size.x / 2 + 40, 930.0f);
+        Tower topTower = new Tower(this, size.x / 2 - 80, 50.0f);
+        Tower topLeftTower = new Tower(this, 50, 200.0f);
+        Tower bottomLeftTower = new Tower(this, 50, 700.0f);
+    }
+
+    public void gererMap() {
+        Map map = new Map(this);
+        map.creatMap();
+    }
+
 
 }
