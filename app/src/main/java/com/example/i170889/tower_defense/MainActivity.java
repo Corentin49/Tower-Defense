@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected List<Mob> listMobs = new ArrayList<>();
     int temps = 0;
     int timeMob;
-    private boolean mapFini = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
         timeMob = 600;
 
-
-        initTower();
         gererMap();
+        initTower();
+
 
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -69,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initTower() {
-        Tower topMiddleTower = new Tower(this, size.x / 2 - 50, 500.0f);
-        Tower bottomMiddleTower = new Tower(this, size.x / 2 + 40, 930.0f);
-        Tower topTower = new Tower(this, size.x / 2 - 80, 50.0f);
+        Tower middleTower = new Tower(this, size.x / 2 + 100, 500.0f);
+        Tower bottomMiddleTower = new Tower(this, size.x / 2 - 60, 990.0f);
+        Tower topTower = new Tower(this, size.x / 2 - 110, 50.0f);
         Tower topLeftTower = new Tower(this, 50, 200.0f);
         Tower bottomLeftTower = new Tower(this, 50, 700.0f);
     }

@@ -14,7 +14,7 @@ public class Map {
     private ImageView mapImage;
     private ViewGroup.LayoutParams params;
     private List<Map> listMap = new ArrayList<>();
-    private String chemin[] = {"bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "droite", "bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "bas"};
+    private String chemin[] = {"bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite","droite", "bas", "bas"};
 
     public Map(MainActivity pcontext) {
         this.context = pcontext;
@@ -37,25 +37,38 @@ public class Map {
 
     public void creatMap() {
 
+        float X = 360.f;
+        float Y = 0.0f;
+
 
         for (int i = 0; chemin.length > i; i++) {
 
             Map map = new Map(this.context);
             listMap.add(map);
 
-            if (this.chemin[i] == "bas") {
-                mapImage.setY(mapImage.getY() + 110);
-                Log.i("SA-PASSE", "BAS");
-            } else if (this.chemin[i] == "gauche") {
-                mapImage.setX(mapImage.getX() - 110);
-                Log.i("SA-PASSE", "GAUCHE");
-            } else if (this.chemin[i] == "droite") {
-                mapImage.setX(mapImage.getX() + 110);
-                Log.i("SA-PASSE", "DROITE");
-            }
         }
         for (Map uneMap:listMap) {
 
+            if (this.chemin[position] == "bas") {
+
+                uneMap.getMapImage().setY(Y + 110);
+                uneMap.getMapImage().setX(X);
+
+            } else if (this.chemin[position] == "gauche") {
+
+                uneMap.getMapImage().setX(X - 110);
+                uneMap.getMapImage().setY(Y);
+
+            } else if (this.chemin[position] == "droite") {
+
+                uneMap.getMapImage().setX(X + 110);
+                uneMap.getMapImage().setY(Y);
+
+            }
+
+            Y = uneMap.getMapImage().getY();
+            X = uneMap.getMapImage().getX();
+            position++;
         }
 
     }
