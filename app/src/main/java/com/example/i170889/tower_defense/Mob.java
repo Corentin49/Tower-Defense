@@ -58,8 +58,8 @@ public class Mob {
             Log.i("GAME-OVER", "FINI");
 
         }
+        this.getDistance();
     }
-
 
 
     public void setX(float x) {
@@ -99,5 +99,33 @@ public class Mob {
     public double getLife() {
         return life;
     }
+
+    public void getDistance() {
+        double distance;
+        for (Tower uneTour : context.getListTour()) {
+            if (uneTour.getLvlTower() > 0) {
+
+                distance = (mobB.getX() - uneTour.getX()) * (mobB.getX() - uneTour.getX()) + (mobB.getY() - uneTour.getY()) * (mobB.getY() - uneTour.getY());
+                distance = Math.sqrt(distance);
+
+                if (distance < 200) {
+                    this.setLife(getLife() - (uneTour.getLvlTower() * 10));
+                    Log.i("LIFEEE",""+getLife());
+                    if (mobB.getAlpha()<=0){
+                        context.setScore(context.getScore() + 10);
+                        context.fenetrePrincipale.removeView(mobB);
+                        context.getListMobs().remove(this);
+                    }
+                    mobB.setAlpha((float) (getLife()/1000));
+                }
+            }
+        }
+    }
+
+
+    public void setLife(double life) {
+        this.life = life;
+    }
+
 
 }

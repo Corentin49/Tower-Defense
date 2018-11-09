@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,11 @@ public class MainActivity extends AppCompatActivity {
     Timer timer = new Timer();
     TimerTask task;
     protected List<Mob> listMobs = new ArrayList<>();
+    protected List<Tower> listTour = new ArrayList<>();
     int temps = 0;
+    int score = 150;
     int timeMob;
+    TextView scoreText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
         timeMob = 600;
+        scoreText= findViewById(R.id.score);
 
         gererMap();
         initTower();
@@ -45,15 +50,16 @@ public class MainActivity extends AppCompatActivity {
                         temps++;
 
 
+                        if (temps == timeMob) {
+                            gererMob();
+                            temps = 0;
 
-                            if (temps == timeMob) {
-                                gererMob();
-                                temps = 0;
-
-                            }
+                        }
                         for (Mob unMob : listMobs) {
                             unMob.move();
                         }
+                        scoreText.setText("Score : "+score);
+
                     }
                 });
 
@@ -63,22 +69,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gererMob() {
-        Mob mob = new Mob(this, "Monkey", 100.0, size.x / 2, 0.0f);
+        Mob mob = new Mob(this, "Monkey", 1000.0, size.x / 2, 0.0f);
         listMobs.add(mob);
     }
 
     public void initTower() {
         Tower middleTower = new Tower(this, size.x / 2 + 100, 500.0f);
         Tower bottomMiddleTower = new Tower(this, size.x / 2 - 60, 990.0f);
-        Tower topTower = new Tower(this, size.x / 2 - 110, 50.0f);
-        Tower topLeftTower = new Tower(this, 50, 200.0f);
-        Tower bottomLeftTower = new Tower(this, 50, 700.0f);
+        Tower topTower = new Tower(this, size.x / 2 - 160, 50.0f);
+        Tower topLeftTower = new Tower(this, 0, 200.0f);
+        Tower bottomLeftTower = new Tower(this, 0, 700.0f);
+
+
+
+
+        listTour.add(middleTower);
+        listTour.add(bottomLeftTower);
+        listTour.add(topLeftTower);
+        listTour.add(bottomMiddleTower);
+        listTour.add(topTower);
+
     }
+
 
     public void gererMap() {
         Map map = new Map(this);
         map.creatMap();
     }
 
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+
+    public List<Mob> getListMobs() {
+        return listMobs;
+    }
+
+    public List<Tower> getListTour() {
+        return listTour;
+    }
 
 }

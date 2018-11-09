@@ -14,7 +14,7 @@ public class Map {
     private ImageView mapImage;
     private ViewGroup.LayoutParams params;
     private List<Map> listMap = new ArrayList<>();
-    private String chemin[] = {"bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite","droite", "bas", "bas"};
+    private String chemin[] = {"bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "bas", "bas", "gauche", "gauche", "bas", "bas", "droite", "droite", "droite", "bas", "bas"};
 
     public Map(MainActivity pcontext) {
         this.context = pcontext;
@@ -47,7 +47,7 @@ public class Map {
             listMap.add(map);
 
         }
-        for (Map uneMap:listMap) {
+        for (Map uneMap : listMap) {
 
             if (this.chemin[position] == "bas") {
 
@@ -90,7 +90,6 @@ public class Map {
     public void setMapImage(ImageView mapImage) {
         this.mapImage = mapImage;
     }
-
 
 
 }
