@@ -1,6 +1,7 @@
 package com.example.i170889.tower_defense;
 
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -38,44 +39,56 @@ public class Tower {
         towerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean appliquer = false;
 
-                if (getLvlTower() == 0){
-                    if (context.getScore() >= 50){
+                if (getLvlTower() == 0 && appliquer == false) {
+                    if (context.getScore() >= 50) {
                         towerImage.setBackgroundResource(R.drawable.towerlvl1);
                         context.setScore(context.getScore() - 50);
+                        setLvlTower(getLvlTower() + 1);
+                        appliquer = true;
                     }
                 }
 
-                if (getLvlTower() == 1){
-                    if (context.getScore() >= 100){
+                if (getLvlTower() == 1 && appliquer == false) {
+                    if (context.getScore() >= 100) {
                         towerImage.setBackgroundResource(R.drawable.towerlvl2);
                         context.setScore(context.getScore() - 100);
+                        setLvlTower(getLvlTower() + 1);
+                        appliquer = true;
                     }
                 }
 
 
-                if (getLvlTower() == 2){
-                    if (context.getScore() >= 150){
+                if (getLvlTower() == 2 && appliquer == false) {
+                    if (context.getScore() >= 150) {
                         towerImage.setBackgroundResource(R.drawable.towerlvl3);
                         context.setScore(context.getScore() - 150);
+                        setLvlTower(getLvlTower() + 1);
+                        appliquer = true;
                     }
                 }
 
 
-                if (getLvlTower() == 3){
-                    if (context.getScore() >= 200){
+                if (getLvlTower() == 3 && appliquer == false) {
+                    if (context.getScore() >= 200) {
                         towerImage.setBackgroundResource(R.drawable.towerlvl4);
                         context.setScore(context.getScore() - 200);
+                        setLvlTower(getLvlTower() + 1);
+                        appliquer = true;
                     }
                 }
 
-                if (getLvlTower() == 4){
-                    if (context.getScore() >= 300){
+                if (getLvlTower() == 4 && appliquer == false) {
+                    if (context.getScore() >= 300) {
                         towerImage.setBackgroundResource(R.drawable.towerlvl5);
                         context.setScore(context.getScore() - 300);
+                        setLvlTower(getLvlTower() + 1);
+                        appliquer = true;
                     }
                 }
-                setLvlTower(getLvlTower() + 1);
+
+                Log.i("LVL", "" + getLvlTower());
             }
         });
     }
