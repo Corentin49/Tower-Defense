@@ -1,7 +1,5 @@
 package com.example.i170889.tower_defense;
 
-import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -88,7 +86,6 @@ public class Tower {
                     }
                 }
 
-                Log.i("LVL", "" + getLvlTower());
             }
         });
     }

@@ -3,12 +3,12 @@ package com.example.i170889.tower_defense;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TimerTask task;
     protected List<Mob> listMobs = new ArrayList<>();
     protected List<Tower> listTour = new ArrayList<>();
+    private List<Mob> listMobsRemove = new ArrayList<>();
     int temps = 0;
     int score = 150;
     int timeMob;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         display.getSize(size);
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
-        timeMob = 600;
+        timeMob = 400;
         scoreText= findViewById(R.id.score);
 
         gererMap();
@@ -55,9 +56,18 @@ public class MainActivity extends AppCompatActivity {
                             temps = 0;
 
                         }
+
                         for (Mob unMob : listMobs) {
                             unMob.move();
+                            if (unMob.getLife() <= 0) {
+                                listMobsRemove.add(unMob);
+                                setScore(getScore() + 10);
+                            }
+
                         }
+
+                        listMobs.removeAll(listMobsRemove);
+
                         scoreText.setText("Score : "+score);
 
                     }

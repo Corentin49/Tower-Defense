@@ -1,6 +1,5 @@
 package com.example.i170889.tower_defense;
 
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;

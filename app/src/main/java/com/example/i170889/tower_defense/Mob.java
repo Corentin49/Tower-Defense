@@ -55,7 +55,6 @@ public class Mob {
             }
             position++;
         } else {
-            Log.i("GAME-OVER", "FINI");
 
         }
         this.getDistance();
@@ -110,11 +109,8 @@ public class Mob {
 
                 if (distance < 200) {
                     this.setLife(getLife() - (uneTour.getLvlTower() * 10));
-                    Log.i("LIFEEE",""+getLife());
                     if (mobB.getAlpha()<=0){
-                        context.setScore(context.getScore() + 10);
                         context.fenetrePrincipale.removeView(mobB);
-                        context.getListMobs().remove(this);
                     }
                     mobB.setAlpha((float) (getLife()/1000));
                 }
