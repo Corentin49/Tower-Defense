@@ -11,7 +11,8 @@ public class Tower {
     private float X;
     private float Y;
     private int lvlTower;
-
+    private Mob mobTarget;
+    private double damage;
     public Tower(MainActivity pcontext, float X, float Y) {
         this.context = pcontext;
         this.X = X;
@@ -44,6 +45,7 @@ public class Tower {
                         towerImage.setBackgroundResource(R.drawable.towerlvl1);
                         context.setScore(context.getScore() - 50);
                         setLvlTower(getLvlTower() + 1);
+                        setDamage(5.4);
                         appliquer = true;
                     }
                 }
@@ -53,6 +55,7 @@ public class Tower {
                         towerImage.setBackgroundResource(R.drawable.towerlvl2);
                         context.setScore(context.getScore() - 100);
                         setLvlTower(getLvlTower() + 1);
+                        setDamage(8.4);
                         appliquer = true;
                     }
                 }
@@ -63,6 +66,7 @@ public class Tower {
                         towerImage.setBackgroundResource(R.drawable.towerlvl3);
                         context.setScore(context.getScore() - 150);
                         setLvlTower(getLvlTower() + 1);
+                        setDamage(10.4);
                         appliquer = true;
                     }
                 }
@@ -73,6 +77,7 @@ public class Tower {
                         towerImage.setBackgroundResource(R.drawable.towerlvl4);
                         context.setScore(context.getScore() - 200);
                         setLvlTower(getLvlTower() + 1);
+                        setDamage(12.4);
                         appliquer = true;
                     }
                 }
@@ -82,7 +87,7 @@ public class Tower {
                         towerImage.setBackgroundResource(R.drawable.towerlvl5);
                         context.setScore(context.getScore() - 300);
                         setLvlTower(getLvlTower() + 1);
-                        appliquer = true;
+                        setDamage(17.4);
                     }
                 }
 
@@ -107,5 +112,19 @@ public class Tower {
         return Y;
     }
 
+    public Mob getMobTarget() {
+        return mobTarget;
+    }
 
+    public void setMobTarget(Mob mobTarget) {
+        this.mobTarget = mobTarget;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
 }

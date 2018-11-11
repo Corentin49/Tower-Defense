@@ -1,14 +1,15 @@
 package com.example.i170889.tower_defense;
 
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
     protected List<Tower> listTour = new ArrayList<>();
     private List<Mob> listMobsRemove = new ArrayList<>();
     int temps = 0;
-    int score = 150;
+    int score = 50;
     int timeMob;
     TextView scoreText;
+    int compteur = 0;
+    double lifeMob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,17 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         display.getSize(size);
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
-        timeMob = 400;
+        timeMob = 600;
+        lifeMob = 1000;
         scoreText= findViewById(R.id.score);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String scoreM = preferences.getString("Score", "");
+        if (!scoreM.equalsIgnoreCase("")){
+            score = Integer.parseInt(scoreM);
+        } else {
+            score = 0;
+        }
 
         gererMap();
         initTower();
@@ -52,9 +64,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                         if (temps == timeMob) {
-                            gererMob();
+                            gererMob(lifeMob);
+                            compteur++;
                             temps = 0;
 
+                        }
+
+                        if (compteur == 10) {
+                            compteur = 0;
+                            timeMob -= 50;
+                            lifeMob += 50;
                         }
 
                         for (Mob unMob : listMobs) {
@@ -78,8 +97,19 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(timerTask, 1000, 10);
     }
 
-    public void gererMob() {
-        Mob mob = new Mob(this, "Monkey", 1000.0, size.x / 2, 0.0f);
+    @Override
+    protected void onStop(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("Score", Integer.toString(this.score));
+
+        editor.apply();
+        super.onStop();
+    }
+
+    public void gererMob(double life) {
+        Mob mob = new Mob(this, "Monkey", life, size.x / 2, 0.0f);
         listMobs.add(mob);
     }
 

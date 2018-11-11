@@ -1,6 +1,5 @@
 package com.example.i170889.tower_defense;
 
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -107,14 +106,26 @@ public class Mob {
                 distance = (mobB.getX() - uneTour.getX()) * (mobB.getX() - uneTour.getX()) + (mobB.getY() - uneTour.getY()) * (mobB.getY() - uneTour.getY());
                 distance = Math.sqrt(distance);
 
-                if (distance < 200) {
-                    this.setLife(getLife() - (uneTour.getLvlTower() * 10));
+                if (distance < 200 && uneTour.getMobTarget() == null) {
+                    uneTour.setMobTarget(this);
+                    this.setLife(getLife() - uneTour.getDamage());
                     if (mobB.getAlpha()<=0){
+                        uneTour.setMobTarget(null);
                         context.fenetrePrincipale.removeView(mobB);
                     }
                     mobB.setAlpha((float) (getLife()/1000));
+                } else if (distance < 200 && uneTour.getMobTarget() == this) {
+                    this.setLife(getLife() - uneTour.getDamage());
+                    if (mobB.getAlpha() <= 0) {
+                        uneTour.setMobTarget(null);
+                        context.fenetrePrincipale.removeView(mobB);
+                    }
+                    mobB.setAlpha((float) (getLife() / 1000));
+                } else if (distance > 200) {
+                    uneTour.setMobTarget(null);
                 }
             }
+
         }
     }
 
