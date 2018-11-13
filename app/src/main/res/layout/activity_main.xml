@@ -24,8 +24,18 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="30dp"
             android:text="Score : " />
+
+        <TextView
+            android:id="@+id/gold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="70dp"
+            android:text="Gold : " />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

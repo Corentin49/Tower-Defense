@@ -38,57 +38,38 @@ public class Tower {
         towerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean appliquer = false;
 
-                if (getLvlTower() == 0 && appliquer == false) {
-                    if (context.getScore() >= 50) {
+                switch (getLvlTower()){
+                    case 0:
                         towerImage.setBackgroundResource(R.drawable.towerlvl1);
-                        context.setScore(context.getScore() - 50);
+                        context.setGold(context.getGold() - 50);
                         setLvlTower(getLvlTower() + 1);
                         setDamage(5.4);
-                        appliquer = true;
-                    }
-                }
-
-                if (getLvlTower() == 1 && appliquer == false) {
-                    if (context.getScore() >= 100) {
+                        break;
+                    case 1:
                         towerImage.setBackgroundResource(R.drawable.towerlvl2);
-                        context.setScore(context.getScore() - 100);
+                        context.setGold(context.getGold() - 100);
                         setLvlTower(getLvlTower() + 1);
                         setDamage(8.4);
-                        appliquer = true;
-                    }
-                }
-
-
-                if (getLvlTower() == 2 && appliquer == false) {
-                    if (context.getScore() >= 150) {
+                        break;
+                    case 2 :
                         towerImage.setBackgroundResource(R.drawable.towerlvl3);
-                        context.setScore(context.getScore() - 150);
+                        context.setGold(context.getGold() - 150);
                         setLvlTower(getLvlTower() + 1);
                         setDamage(10.4);
-                        appliquer = true;
-                    }
-                }
-
-
-                if (getLvlTower() == 3 && appliquer == false) {
-                    if (context.getScore() >= 200) {
+                        break;
+                    case 3:
                         towerImage.setBackgroundResource(R.drawable.towerlvl4);
-                        context.setScore(context.getScore() - 200);
+                        context.setGold(context.getGold() - 200);
                         setLvlTower(getLvlTower() + 1);
                         setDamage(12.4);
-                        appliquer = true;
-                    }
-                }
-
-                if (getLvlTower() == 4 && appliquer == false) {
-                    if (context.getScore() >= 300) {
-                        towerImage.setBackgroundResource(R.drawable.towerlvl5);
-                        context.setScore(context.getScore() - 300);
-                        setLvlTower(getLvlTower() + 1);
-                        setDamage(17.4);
-                    }
+                        break;
+                     case 4:
+                         towerImage.setBackgroundResource(R.drawable.towerlvl5);
+                         context.setGold(context.getGold() - 300);
+                         setLvlTower(getLvlTower() + 1);
+                         setDamage(17.4);
+                         break;
                 }
 
             }
