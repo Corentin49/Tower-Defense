@@ -15,10 +15,12 @@ public class Mob {
     private float Y;
     private ViewGroup.LayoutParams params;
     private int position;
+    private double baseLife;
 
     public Mob(MainActivity pContext, String name, double life, float X, float Y) {
         this.name = name;
         this.life = life;
+        baseLife = life;
         context = pContext;
         this.position = 0;
         this.X = X;
@@ -113,14 +115,14 @@ public class Mob {
                         uneTour.setMobTarget(null);
                         context.fenetrePrincipale.removeView(mobB);
                     }
-                    mobB.setAlpha((float) (getLife() / 1000));
+                    mobB.setAlpha((float) (getLife() / baseLife));
                 } else if (distance < 200 && uneTour.getMobTarget() == this) {
                     this.setLife(getLife() - uneTour.getDamage());
                     if (mobB.getAlpha() <= 0) {
                         uneTour.setMobTarget(null);
                         context.fenetrePrincipale.removeView(mobB);
                     }
-                    mobB.setAlpha((float) (getLife() / 1000));
+                    mobB.setAlpha((float) (getLife() / baseLife));
                 } else if (distance >= 200) {
                     uneTour.setMobTarget(null);
                 }
