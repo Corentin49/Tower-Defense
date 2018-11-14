@@ -41,34 +41,44 @@ public class Tower {
 
                 switch (getLvlTower()){
                     case 0:
-                        towerImage.setBackgroundResource(R.drawable.towerlvl1);
-                        context.setGold(context.getGold() - 50);
-                        setLvlTower(getLvlTower() + 1);
-                        setDamage(5.4);
+                        if(context.getGold() >= 50) {
+                            towerImage.setBackgroundResource(R.drawable.towerlvl1);
+                            context.setGold(context.getGold() - 50);
+                            setLvlTower(getLvlTower() + 1);
+                            setDamage(5.4);
+                        }
                         break;
                     case 1:
-                        towerImage.setBackgroundResource(R.drawable.towerlvl2);
-                        context.setGold(context.getGold() - 100);
-                        setLvlTower(getLvlTower() + 1);
-                        setDamage(8.4);
+                        if(context.getGold() >= 100) {
+                            towerImage.setBackgroundResource(R.drawable.towerlvl2);
+                            context.setGold(context.getGold() - 100);
+                            setLvlTower(getLvlTower() + 1);
+                            setDamage(8.4);
+                        }
                         break;
                     case 2 :
-                        towerImage.setBackgroundResource(R.drawable.towerlvl3);
-                        context.setGold(context.getGold() - 150);
-                        setLvlTower(getLvlTower() + 1);
-                        setDamage(10.4);
+                        if(context.getGold() >= 150) {
+                            towerImage.setBackgroundResource(R.drawable.towerlvl3);
+                            context.setGold(context.getGold() - 150);
+                            setLvlTower(getLvlTower() + 1);
+                            setDamage(10.4);
+                        }
                         break;
                     case 3:
-                        towerImage.setBackgroundResource(R.drawable.towerlvl4);
-                        context.setGold(context.getGold() - 200);
-                        setLvlTower(getLvlTower() + 1);
-                        setDamage(12.4);
+                        if(context.getGold() >= 200) {
+                            towerImage.setBackgroundResource(R.drawable.towerlvl4);
+                            context.setGold(context.getGold() - 200);
+                            setLvlTower(getLvlTower() + 1);
+                            setDamage(12.4);
+                        }
                         break;
                      case 4:
-                         towerImage.setBackgroundResource(R.drawable.towerlvl5);
-                         context.setGold(context.getGold() - 300);
-                         setLvlTower(getLvlTower() + 1);
-                         setDamage(17.4);
+                         if(context.getGold() >= 300) {
+                             towerImage.setBackgroundResource(R.drawable.towerlvl5);
+                             context.setGold(context.getGold() - 300);
+                             setLvlTower(getLvlTower() + 1);
+                             setDamage(17.4);
+                         }
                          break;
                 }
 

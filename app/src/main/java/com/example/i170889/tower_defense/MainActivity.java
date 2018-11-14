@@ -3,10 +3,10 @@ package com.example.i170889.tower_defense;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    int score;
     public RelativeLayout fenetrePrincipale;
     public Display display;
     public Point size;
@@ -26,14 +27,18 @@ public class MainActivity extends AppCompatActivity {
     Timer timer;
     int gold;
     int temps;
-    static int score;
     TextView goldText;
     int timeMob;
     TextView scoreText;
     int compteur;
     boolean lose;
     double lifeMob;
+    MediaPlayer mySound;
     private List<Mob> listMobsRemove;
+    private int timeWave;
+    private int compteurWave;
+    private int nbMob;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,38 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         display.getSize(size);
         fenetrePrincipale = findViewById(R.id.fenetrePrincipale);
+        scoreText = findViewById(R.id.score);
+        goldText = findViewById(R.id.gold);
+        mySound = MediaPlayer.create(this, R.raw.music);
+        mySound.start();
+
+        initVariable();
+        gererMap();
+        initTower();
+        lancerJeu();
+    }
+
+    @Override
+    protected void onStop() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+
+        String bestScore = preferences.getString("Score", "");
+        if (bestScore.equalsIgnoreCase("") || Integer.parseInt(bestScore) <= score) {
+            editor.putString("Score", Integer.toString(this.score));
+        }
+        editor.apply();
+        mySound.stop();
+        super.onStop();
+    }
+
+    public void gererMob(double life) {
+        Mob mob = new Mob(this, "Monkey", life, size.x / 2, 0.0f);
+        listMobs.add(mob);
+    }
+
+    public void initVariable() {
         listMobsRemove = new ArrayList<>();
         listMobs = new ArrayList<>();
         listTour = new ArrayList<>();
@@ -53,31 +90,11 @@ public class MainActivity extends AppCompatActivity {
         score = 0;
         gold = 50;
         compteur = 0;
-        scoreText= findViewById(R.id.score);
-        goldText = findViewById(R.id.gold);
-
-        gererMap();
-        initTower();
-        lancerJeu();
-    }
-
-    @Override
-    protected void onStop(){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
+        timeWave = 0;
+        compteurWave = 0;
+        nbMob = 5;
 
 
-        String bestScore = preferences.getString("Score", "");
-        if (bestScore.equalsIgnoreCase("") || Integer.parseInt(bestScore) <= score){
-            editor.putString("Score", Integer.toString(this.score));
-        }
-        editor.apply();
-        super.onStop();
-    }
-
-    public void gererMob(double life) {
-        Mob mob = new Mob(this, "Monkey", life, size.x / 2, 0.0f);
-        listMobs.add(mob);
     }
 
     public void initTower() {
@@ -97,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ouvrirLoseActivity() {
         Intent intent = new Intent(this, LoseActivity.class);
+        intent.putExtra("score", getScore());
         startActivity(intent);
     }
 
@@ -108,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void lancerJeu() {
 
-        final TimerTask timerTask = new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -119,18 +137,30 @@ public class MainActivity extends AppCompatActivity {
                             temps++;
 
 
-                            if (temps == timeMob) {
-                                gererMob(lifeMob);
-                                compteur++;
-                                temps = 0;
+                            if (temps >= timeMob) {
+                                timeWave++;
+                                if (timeWave == 200) {
+                                    gererMob(lifeMob);
+                                    if (compteurWave >= nbMob) {
+                                        nbMob++;
+                                        temps = 0;
+                                        compteurWave = 0;
+                                    }
+                                    compteur++;
+                                    compteurWave++;
+                                    timeWave = 0;
+                                }
+
 
                             }
+
 
                             if (compteur == 10) {
                                 compteur = 0;
-                                timeMob -= 20;
-                                lifeMob += 200;
+                                timeMob -= 50;
+                                lifeMob += 800;
                             }
+
 
                             for (Mob unMob : listMobs) {
                                 unMob.move();
@@ -142,11 +172,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                             }
-
                             listMobs.removeAll(listMobsRemove);
+
 
                             scoreText.setText("Score : " + score);
                             goldText.setText("Gold : " + gold);
+                            if (!mySound.isPlaying()) {
+                                mySound.start();
+                            }
 
 
                         } else {
@@ -162,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
         };
         timer.schedule(timerTask, 1000, 10);
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
     }
 
 
