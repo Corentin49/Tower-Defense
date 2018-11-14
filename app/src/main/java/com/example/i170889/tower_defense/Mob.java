@@ -113,14 +113,14 @@ public class Mob {
                         uneTour.setMobTarget(null);
                         context.fenetrePrincipale.removeView(mobB);
                     }
-                    mobB.setAlpha((float) (getLife() / getLife()));
+                    mobB.setAlpha((float) (getLife() / 1000));
                 } else if (distance < 200 && uneTour.getMobTarget() == this) {
                     this.setLife(getLife() - uneTour.getDamage());
                     if (mobB.getAlpha() <= 0) {
                         uneTour.setMobTarget(null);
                         context.fenetrePrincipale.removeView(mobB);
                     }
-                    mobB.setAlpha((float) (getLife() / getLife()));
+                    mobB.setAlpha((float) (getLife() / 1000));
                 } else if (distance >= 200) {
                     uneTour.setMobTarget(null);
                 }
