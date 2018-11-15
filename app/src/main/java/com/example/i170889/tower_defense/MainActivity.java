@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int timeWave;
     private int compteurWave;
     private int nbMob;
+    MusicManager musicManager;
 
 
     @Override
@@ -74,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onPause() {
+        mySound.pause();
+        super.onPause();
+    }
+
+    @Override
+    protected  void onResume() {
+        mySound.start();
+        super.onResume();
+    }
+
     public void gererMob(double life) {
         Mob mob = new Mob(this, "Monkey", life, size.x / 2, 0.0f);
         listMobs.add(mob);
@@ -93,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         timeWave = 0;
         compteurWave = 0;
         nbMob = 5;
+        musicManager = new MusicManager(this);
 
 
     }
@@ -166,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                                 unMob.move();
                                 if (unMob.getLife() <= 0) {
                                     listMobsRemove.add(unMob);
+                                    musicManager.jouerSonMort();
                                     setGold(getGold() + 10);
                                     setScore(getScore() + 100);
 

@@ -28,7 +28,7 @@ public class Map {
         params = new ViewGroup.LayoutParams(110, 110);
         mapImage.setLayoutParams(params);
 
-        mapImage.setX(360.f);
+        mapImage.setX(context.size.x/2);
         mapImage.setY(0.0f);
 
         context.fenetrePrincipale.addView(mapImage);
@@ -36,7 +36,7 @@ public class Map {
 
     public void creatMap() {
 
-        float X = 360.f;
+        float X = context.size.x/2;
         float Y = 0.0f;
 
 
